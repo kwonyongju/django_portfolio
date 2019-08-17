@@ -50,7 +50,7 @@
             <a class="nav-link" href="{% static 'resume_yongju_kwon.pdf' %}">Resume</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="blog/">Blog</a>
+            <a class="nav-link active" href="#">Blog</a>
           </li>
         </ul>
       </div>
@@ -58,38 +58,34 @@
   </header>
 
   <main role="main">
-
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1 class="jumbotron-heading">Hi, I'm Yongju!</h1>
-        <p class="lead text-muted">Hi, my name is yongju kwon and this is Django web app.</p>
-        <p>
-          <a href="mailto:michaelkyj@gmail.com" class="btn btn-secondary my-2">Contact Me</a>
-        </p>
-        <img src="{% static 'yongju.jpeg' %}" alt="image_of_mine" width="200px" height="260px">
-      </div>
-    </section>
-
-    <div class="album py-5 bg-light">
-      <div class="container">
-        <div class="row">
-          {% for job in jobs.all %}
+    <div class="container">
+      <h1 class="text-center pt-3 pb-3">Welcome to Yongju's blogs</h1>
+      <br /><br />
+      <h2>Latest Posts</h2>
+      <hr />
+      {% for blog in blogs.all %}
+      <div class="card mb-3" style="width: 100%">
+        <div class="row no-gutters">
           <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img src="{{job.image.url}}" alt="job image" width="100%" height="100%">
-              <div class="card-body">
-                <p class="card-text">{{job.summary}}</p>
-              </div>
+            {% if blog.image %}
+              <img src="{{ blog.image.url }}" class="card-img" alt="blog image">
+            {% endif %}
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="{% url 'detail' blog.id %}"><h5 class="card-title">{{ blog.title }}</h5></a>
+              <p class="card-text">{{ blog.summary }}</p>
+              <p class="card-text"><small class="text-muted">{{ blog.format_date }}</small></p>
             </div>
           </div>
-          {% endfor %}
         </div>
       </div>
+      {% endfor %}
     </div>
 
   </main>
 
-  <footer class="text-muted">
+  <footer class="text-muted pt-5 pb-5">
     <div class="container text-center">
       <p> Copyright © Yongju Kwon {% now "Y" %}</p>
     </div>
